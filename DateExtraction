@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[15]:
+
+
+import pytesseract
+from PIL import Image
+import datefinder
+import pyttsx3
+from googletrans import Translator
+import datefinder
+import os
+import glob
+import pandas as pd
+import numpy as np
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES =True
+
+
+# In[8]:
+
+
+files_path = "https://drive.google.com/open?id=1u7N0L9-7ak76I8gb7TV0dFucCNjVfH7d"
+read_files =glob.glob(os.path.join(files_path,"*.jpeg"))
+
+
+# In[17]:
+
+
+ar=[]
+for files in read_files:
+    ar.append(files)
+ar
+
+
+# In[10]:
+
+
+len(ar)
+
+
+# In[18]:
+
+
+bill=[]
+for i in ar:
+    img = Image.open(i)
+    pytesseract.pytesseract.tesseract_cmd ='C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
+    result = pytesseract.image_to_string(img)
+    with open('abc.txt',mode ='w') as file:      
+                 file.write(result) 
+                 bill.append(result)
+                 print(result) 
+                   
+    p = Translator()  
+    
+bill[0]
+
+
+# In[12]:
+
+
+len(bill)
+
+
+# In[23]:
+
+
+for i in bill:
+    matches = datefinder.find_dates(i)
+    for match in matches:
+        print(str(match))
+
+
+# In[ ]:
+
+
+
+
